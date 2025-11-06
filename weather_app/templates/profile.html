@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль - Метеосервис{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>Редактирование профиля</h1>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            <h3>Основная информация</h3>
+            
+            <div class="form-group">
+                <label for="{{ user_form.username.id_for_label }}">Имя пользователя:</label>
+                {{ user_form.username }}
+                {% if user_form.username.errors %}
+                    <div class="error">{{ user_form.username.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ user_form.email.id_for_label }}">Email:</label>
+                {{ user_form.email }}
+                {% if user_form.email.errors %}
+                    <div class="error">{{ user_form.email.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ user_form.first_name.id_for_label }}">Имя:</label>
+                {{ user_form.first_name }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ user_form.last_name.id_for_label }}">Фамилия:</label>
+                {{ user_form.last_name }}
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h3>Дополнительная информация</h3>
+            
+            <div class="form-group">
+                <label for="{{ profile_form.avatar.id_for_label }}">Аватар:</label>
+                {{ profile_form.avatar }}
+                {% if request.user.profile.avatar %}
+                    <div class="current-avatar">
+                        <p>Текущий аватар:</p>
+                        <img src="{{ request.user.profile.avatar.url }}" alt="Аватар" style="max-width: 150px; border-radius: 8px;">
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ profile_form.bio.id_for_label }}">Биография:</label>
+                {{ profile_form.bio }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ profile_form.location.id_for_label }}">Местоположение:</label>
+                {{ profile_form.location }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ profile_form.birth_date.id_for_label }}">Дата рождения:</label>
+                {{ profile_form.birth_date }}
+            </div>
+        </div>
+        
+        <button type="submit" class="nav-btn" style="margin-top: 1rem;">💾 Сохранить изменения</button>
+    </form>
+</div>
+
+<style>
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.form-section {
+    background: var(--accent-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+.form-section h3 {
+    margin-top: 0;
+    color: var(--accent);
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+.form-group input, 
+.form-group textarea, 
+.form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+.error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.current-avatar {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 4px;
+}
+</style>
+{% endblock %}

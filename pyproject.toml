@@ -1,0 +1,86 @@
+[project]
+name = "meteoservice"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "melifaro",email = "dmitrijpankratov727@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django (>=5.2.6,<6.0.0)",
+    "ruff (>=0.13.0,<0.14.0)",
+    "pyyaml (>=6.0.3,<7.0.0)",
+    "django-debug-toolbar (>=6.0.0,<7.0.0)",
+    "django-import-export (>=4.3.10,<5.0.0)",
+    "requests (>=2.32.5,<3.0.0)",
+    "pillow (>=12.0.0,<13.0.0)",
+    "django-extensions (>=4.1,<5.0)",
+    "werkzeug (>=3.1.3,<4.0.0)",
+    "pyopenssl (>=25.3.0,<26.0.0)",
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "whitenoise (>=6.11.0,<7.0.0)",
+    "gunicorn (>=23.0.0,<24.0.0)",
+    "djangorestframework (>=3.16.1,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+line-length = 90
+indent-width = 4
+
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+ignore = []
+
+fixable = ["ALL"]
+unfixable = []
+
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+
+indent-style = "space"
+
+skip-magic-trailing-comma = false
+
+line-ending = "auto"
+
+docstring-code-format = false
+
+docstring-code-line-length = "dynamic"

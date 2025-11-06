@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список городов</title>
+</head>
+<body>
+    <ul>
+    {% for f in forecasts %}
+        <li>
+        {{ f.city_id.name }} ({{ f.city_id.country }}) —
+        {{ f.forecast_date }}: {{ f.temperature_min }}° / {{ f.temperature_max }}°
+        <br>
+        В избранном у: 
+        {% for u in f.city_id.users.all %}
+            {{ u.username }},
+        {% empty %}
+            (нет пользователей)
+        {% endfor %}
+        </li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>

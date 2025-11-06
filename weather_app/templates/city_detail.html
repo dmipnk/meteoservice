@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ city.name }}</h1>
+
+  {% if city.photo %}
+    <img src="{{ city.photo.url }}" alt="{{ city.name }}" style="max-width:300px;">
+  {% endif %}
+
+  <p>Страна: {{ city.country }}</p>
+  <p>Координаты: {{ city.latitude }}, {{ city.longitude }}</p>
+
+  <!-- КНОПКИ ИЗБРАННОГО -->
+  {% if user.is_authenticated %}
+    {% if is_favorite %}
+      <form action="{% url 'remove_favorite' city.pk %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="nav-btn">⭐ Удалить из избранного</button>
+      </form>
+    {% else %}
+      <form action="{% url 'add_favorite' city.pk %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="nav-btn">☆ Добавить в избранное</button>
+      </form>
+    {% endif %}
+  {% endif %}
+
+  <!-- КНОПКИ РЕДАКТИРОВАНИЯ - ТОЛЬКО ДЛЯ АДМИНИСТРАТОРОВ -->
+  {% if user.is_staff %}
+  <div style="display:flex; flex-direction:column; gap:10px; max-width:150px; margin-top:10px;">
+    <a href="{% url 'city_update' city.pk %}" class="nav-btn">✏️ Редактировать</a>
+    <a href="{% url 'city_delete' city.pk %}" class="nav-btn">🗑️ Удалить</a>
+  </div>
+  {% endif %}
+
+  <div style="margin-top:10px;">
+    <a href="{% url 'city_list' %}" class="nav-btn">← Назад к списку</a>
+  </div>
+
+  <!-- БЛОК ПРОГНОЗОВ ПОГОДЫ -->
+  {% if forecasts %}
+    <h2 style="margin-top:20px;">Прогноз погоды</h2>
+    {% for forecast in forecasts %}
+      <div style="border:1px solid #ccc; padding:10px; margin:5px 0;">
+        <p><strong>Дата:</strong> {{ forecast.forecast_date }}</p>
+        <p><strong>Температура:</strong> {{ forecast.temperature_min }}°C - {{ forecast.temperature_max }}°C</p>
+        <p><strong>Условия:</strong> {{ forecast.condition }}</p>
+        <p><strong>Влажность:</strong> {{ forecast.humidity }}%</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

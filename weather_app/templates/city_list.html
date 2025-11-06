@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Список городов</h1>
+
+  <!-- Кнопка добавления нового города - ТОЛЬКО ДЛЯ АДМИНОВ -->
+  {% if user.is_staff %}
+  <a href="{% url 'city_add' %}" class="nav-btn" style="display: block; margin-bottom: 15px;">
+      ➕ Добавить город
+  </a>
+  {% endif %}
+  
+  <a href="{% url 'city_search' %}" class="nav-btn" style="display: block; margin-bottom: 15px;">
+      🔍️ Поиск
+  </a>
+  
+  <ul>
+    {% for city in cities %}
+      <li>
+        <a href="{% url 'city_detail' city.pk %}">
+          {{ city.name }} / {{ city.country }}
+        </a>
+        <!-- КНОПКИ РЕДАКТИРОВАНИЯ ТОЛЬКО ДЛЯ АДМИНОВ ДЛЯ ВСЕХ ГОРОДОВ -->
+        {% if user.is_staff %}
+          <small style="margin-left: 10px;">
+            <a href="{% url 'city_update' city.pk %}">[✏️ ред.]</a>
+            <a href="{% url 'city_delete' city.pk %}">[🗑️ уд.]</a>
+          </small>
+        {% endif %}
+      </li>
+    {% empty %}
+      <p>Городов пока нет.</p>
+    {% endfor %}
+  </ul>
+
+  <!-- Пагинация -->
+  {% if page_obj.paginator.num_pages > 1 %}
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+      {% endif %}
+
+      <span class="current">
+        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">следующая</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+
+  <style>
+    .pagination {
+      margin-top: 2rem;
+      text-align: center;
+      padding: 1rem;
+    }
+    .step-links a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007cba;
+    }
+    .current {
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+  </style>
+  {% endif %}
+{% endblock %}

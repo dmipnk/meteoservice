@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Поиск городов{% endblock %}
+
+{% block content %}
+<h2>Поиск городов</h2>
+
+<form method="get" class="mb-3">
+    <input type="text" name="q" placeholder="Введите название или страну" value="{{ query }}">
+    <select name="order">
+        <option value="">Без сортировки</option>
+        <option value="asc" {% if order == "asc" %}selected{% endif %}>По алфавиту (А–Я)</option>
+        <option value="desc" {% if order == "desc" %}selected{% endif %}>По алфавиту (Я–А)</option>
+    </select>
+    <button type="submit">Найти</button>
+</form>
+
+{% if cities %}
+    <ul>
+        {% for city in cities %}
+            <li>
+                <strong>{{ city.name }}</strong> — {{ city.country }}
+                (<a href="{% url 'city_detail' city.pk %}">подробнее</a>)
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Ничего не найдено.</p>
+{% endif %}
+{% endblock %}

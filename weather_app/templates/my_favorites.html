@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Мои города - Метеосервис{% endblock %}
+
+{% block content %}
+  <h1>⭐ Мои избранные города</h1>
+
+  {% if favorite_cities %}
+    <ul>
+      {% for city in favorite_cities %}
+        <li style="margin-bottom: 10px;">
+          <a href="{% url 'city_detail' city.pk %}">
+            {{ city.name }} / {{ city.country }}
+          </a>
+          <!-- Временно оставляем кнопки редактирования -->
+          <small style="margin-left: 10px;">
+            <a href="{% url 'city_update' city.pk %}">[✏️ ред.]</a>
+            <a href="{% url 'city_delete' city.pk %}">[🗑️ уд.]</a>
+          </small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>У вас пока нет избранных городов.</p>
+    <p><a href="{% url 'city_list' %}">Перейти к списку всех городов</a> чтобы добавить города в избранное.</p>
+  {% endif %}
+{% endblock %}

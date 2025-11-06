@@ -1,0 +1,209 @@
+- model: weather_app.City
+  fields:
+    name: Tokyo
+    country: Japan
+    latitude: 35.652832
+    longitude: 139.839478
+
+- model: weather_app.City
+  fields:
+    name: Paris
+    country: France
+    latitude: 48.864716
+    longitude: 2.349014
+
+- model: weather_app.City
+  fields:
+    name: Oslo  
+    country: Norway
+    latitude: 59.911491
+    longitude: 10.757933
+
+- model: weather_app.City
+  fields:
+    name: Johannesburg
+    country: South Africa
+    latitude: -26.195246
+    longitude: 28.034087
+
+- model: weather_app.City
+  fields:
+    name: Rome  
+    country: Italy
+    latitude: 41.902782
+    longitude: 12.496366
+
+- model: weather_app.City
+  fields:
+    name: New York
+    country: USA
+    latitude: 40.712776
+    longitude: -74.005974
+
+- model: weather_app.City
+  fields:
+    name: London
+    country: UK
+    latitude: 51.507351
+    longitude: -0.127758
+
+- model: weather_app.City
+  fields:
+    name: Berlin
+    country: Germany
+    latitude: 52.520008
+    longitude: 13.404954
+
+- model: weather_app.City
+  fields:
+    name: Madrid
+    country: Spain
+    latitude: 40.416775
+    longitude: -3.703790
+
+- model: weather_app.City
+  fields:
+    name: Moscow
+    country: Russia
+    latitude: 55.755825
+    longitude: 37.617298
+
+- model: weather_app.City
+  fields:
+    name: Sydney
+    country: Australia
+    latitude: -33.868820
+    longitude: 151.209290
+
+- model: weather_app.City
+  fields:
+    name: Beijing
+    country: China
+    latitude: 39.904202
+    longitude: 116.407394
+
+- model: weather_app.City
+  fields:
+    name: Mumbai
+    country: India
+    latitude: 19.076090
+    longitude: 72.877426
+
+- model: weather_app.City
+  fields:
+    name: Cairo
+    country: Egypt
+    latitude: 30.044420
+    longitude: 31.235712
+
+- model: weather_app.City
+  fields:
+    name: Rio de Janeiro
+    country: Brazil
+    latitude: -22.906847
+    longitude: -43.172897
+
+- model: weather_app.City
+  fields:
+    name: Toronto
+    country: Canada
+    latitude: 43.653225
+    longitude: -79.383186
+
+- model: weather_app.City
+  fields:
+    name: Dubai
+    country: UAE
+    latitude: 25.204849
+    longitude: 55.270782
+
+- model: weather_app.City
+  fields:
+    name: Seoul
+    country: South Korea
+    latitude: 37.566536
+    longitude: 126.977966
+
+- model: weather_app.City
+  fields:
+    name: Bangkok
+    country: Thailand
+    latitude: 13.756331
+    longitude: 100.501762
+
+- model: weather_app.City
+  fields:
+    name: Mexico City
+    country: Mexico
+    latitude: 19.432608
+    longitude: -99.133209
+
+- model: weather_app.City
+  fields:
+    name: Istanbul
+    country: Turkey
+    latitude: 41.008240
+    longitude: 28.978359
+
+- model: weather_app.City
+  fields:
+    name: Amsterdam
+    country: Netherlands
+    latitude: 52.367573
+    longitude: 4.904139
+
+- model: weather_app.City
+  fields:
+    name: Vienna
+    country: Austria
+    latitude: 48.208176
+    longitude: 16.373819
+
+- model: weather_app.City
+  fields:
+    name: Prague
+    country: Czech Republic
+    latitude: 50.075539
+    longitude: 14.437800
+
+- model: weather_app.City
+  fields:
+    name: Warsaw
+    country: Poland
+    latitude: 52.229675
+    longitude: 21.012230
+
+- model: weather_app.City
+  fields:
+    name: Athens
+    country: Greece
+    latitude: 37.983810
+    longitude: 23.727539
+
+- model: weather_app.City
+  fields:
+    name: Stockholm
+    country: Sweden
+    latitude: 59.329323
+    longitude: 18.068581
+
+- model: weather_app.City
+  fields:
+    name: Helsinki
+    country: Finland
+    latitude: 60.169857
+    longitude: 24.938379
+
+- model: weather_app.City
+  fields:
+    name: Lisbon
+    country: Portugal
+    latitude: 38.722252
+    longitude: -9.139337
+
+- model: weather_app.City
+  fields:
+    name: Budapest
+    country: Hungary
+    latitude: 47.497913
+    longitude: 19.040236

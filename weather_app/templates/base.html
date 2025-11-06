@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Метеосервис{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+    <style>
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 1rem;
+        }
+        .site-title {
+            margin: 0;
+            flex-shrink: 0;
+        }
+        .site-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .nav-main {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .nav-auth {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        /* ОДИНАКОВЫЕ СТИЛИ ДЛЯ ВСЕХ КНОПОК */
+        .nav-btn, .logout-btn {
+            display: inline-block;
+            background: var(--accent-bg);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            cursor: pointer;
+            font: inherit;
+            font-size: 1rem;
+            line-height: 1.2;
+            transition: all 0.2s;
+            white-space: nowrap;
+            height: auto;
+            box-sizing: border-box;
+        }
+        .nav-btn:hover, .logout-btn:hover {
+            background: var(--accent);
+            color: var(--accent-text);
+        }
+        .logout-form {
+            display: inline;
+            margin: 0;
+        }
+        /* Стили для сообщений */
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+        .message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .message.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1 class="site-title"><a href="/">🌦 Метеосервис</a></h1>
+            
+            <nav class="nav-main">
+                <a href="/cities/" class="nav-btn">🏙️ Все города</a>
+                {% if user.is_authenticated %}
+                    <a href="/my-favorites/" class="nav-btn">⭐ Избранное</a>
+                {% endif %}
+		<a href="{% url 'support_request' %}" class="nav-btn">📧 Поддержка</a>
+   		{% if user.is_staff %}
+       			<a href="{% url 'support_dashboard' %}" class="nav-btn">🛠️ Панель поддержки</a>
+   		{% endif %}
+            </nav>
+            
+            <nav class="nav-auth">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="nav-btn">👤 {{ user.username }}</a>
+                    <a href="#" class="nav-btn" onclick="document.getElementById('logout-form').submit();">🚪 Выйти</a>
+        	    <form id="logout-form" class="logout-form" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="nav-btn">🔑 Войти</a>
+                    <a href="{% url 'register' %}" class="nav-btn">📝 Регистрация</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- БЛОК СООБЩЕНИЙ -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- ПРОСТО ОДИН БЛОК CONTENT -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2025 Метеосервис</p>
+    </footer>
+</body>
+</html>

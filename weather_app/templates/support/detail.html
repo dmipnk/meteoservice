@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Заявка #{{ support_request.id }} - Метеосервис{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <h1>📄 Заявка #{{ support_request.id }}</h1>
+    
+    <!-- Компактная информация о заявке -->
+    <div style="background: #2d3748; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #4a5568;">
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.5rem; align-items: center; color: #e2e8f0;">
+            <strong>Тема:</strong>
+            <span>{{ support_request.subject }}</span>
+            
+            <strong>Имя:</strong>
+            <span>{{ support_request.name }}</span>
+            
+            <strong>Email:</strong>
+            <span>{{ support_request.email }}</span>
+            
+            <strong>Статус:</strong>
+            <span style="padding: 2px 8px; border-radius: 4px; 
+                        {% if support_request.status == 'new' %}background: #fefcbf; color: #744210;{% endif %}
+                        {% if support_request.status == 'in_progress' %}background: #bee3f8; color: #1a365d;{% endif %}
+                        {% if support_request.status == 'resolved' %}background: #c6f6d5; color: #22543d;{% endif %}
+                        {% if support_request.status == 'closed' %}background: #e2e8f0; color: #1a202c;{% endif %}">
+                {{ support_request.get_status_display }}
+            </span>
+            
+            <strong>Дата:</strong>
+            <span>{{ support_request.created_at|date:"d.m.Y H:i" }}</span>
+            
+            {% if support_request.user %}
+            <strong>Пользователь:</strong>
+            <span>{{ support_request.user.username }}</span>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Сообщение пользователя -->
+    <div style="margin-bottom: 1.5rem;">
+        <h3 style="color: #e2e8f0; margin-bottom: 0.5rem;">📝 Сообщение:</h3>
+        <div style="background: #2d3748; padding: 1rem; border: 1px solid #4a5568; border-radius: 8px; color: #e2e8f0; line-height: 1.5;">
+            {{ support_request.message|linebreaks }}
+        </div>
+    </div>
+    
+    <!-- Предыдущий ответ -->
+    {% if support_request.admin_response %}
+    <div style="margin-bottom: 1.5rem;">
+        <h3 style="color: #e2e8f0; margin-bottom: 0.5rem;">💬 Ответ:</h3>
+        <div style="background: #22543d; padding: 1rem; border: 1px solid #38a169; border-radius: 8px; color: #c6f6d5; line-height: 1.5;">
+            {{ support_request.admin_response|linebreaks }}
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #9ae6b4;">
+                <strong>Ответил:</strong> {{ support_request.responded_by.username }} 
+                ({{ support_request.responded_at|date:"d.m.Y H:i" }})
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Форма ответа -->
+    <div style="background: #2d3748; padding: 1rem; border-radius: 8px; border: 1px solid #4a5568;">
+        <h3 style="color: #e2e8f0; margin-bottom: 1rem; margin-top: 0;">✏️ Ответить:</h3>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.25rem; font-weight: bold; color: #e2e8f0;">Ответ пользователю:</label>
+                <textarea name="admin_response" style="width: 100%; padding: 0.5rem; border: 1px solid #4a5568; border-radius: 4px; background: #1a202c; color: #e2e8f0; min-height: 100px; resize: vertical;">{{ form.admin_response.value|default:'' }}</textarea>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.25rem; font-weight: bold; color: #e2e8f0;">Статус:</label>
+                <select name="status" style="width: 100%; padding: 0.5rem; border: 1px solid #4a5568; border-radius: 4px; background: #1a202c; color: #e2e8f0;">
+                    {% for status_value, status_label in support_request.STATUS_CHOICES %}
+                        <option value="{{ status_value }}" {% if support_request.status == status_value %}selected{% endif %}>
+                            {{ status_label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div style="display: flex; gap: 0.5rem;">
+                <button type="submit" class="nav-btn">📤 Отправить ответ</button>
+                <a href="{% url 'support_dashboard' %}" class="nav-btn" style="background: #4a5568;">← Назад</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

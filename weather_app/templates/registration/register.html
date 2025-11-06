@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация - Метеосервис{% endblock %}
+
+{% block content %}
+<div class="centered-form-container">
+    <h2>Регистрация</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="nav-btn">Зарегистрироваться</button>
+    </form>
+    <p style="margin-top: 1rem;">Уже есть аккаунт? <a href="{% url 'login' %}">Войдите</a></p>
+</div>
+{% endblock %}

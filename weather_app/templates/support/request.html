@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Обратная связь - Метеосервис{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <h1>📧 Обратная связь</h1>
+    <p>Если у вас есть вопросы или проблемы, заполните форму ниже. Мы ответим вам в ближайшее время.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div style="margin-bottom: 1rem;">
+            <label for="{{ form.name.id_for_label }}">Имя:</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div style="color: red;">{{ form.name.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div style="color: red;">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+            <label for="{{ form.subject.id_for_label }}">Тема:</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}
+                <div style="color: red;">{{ form.subject.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+            <label for="{{ form.message.id_for_label }}">Сообщение:</label>
+            {{ form.message }}
+            {% if form.message.errors %}
+                <div style="color: red;">{{ form.message.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="nav-btn">📤 Отправить сообщение</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Панель поддержки - Метеосервис{% endblock %}
+
+{% block content %}
+<div class="support-dashboard">
+    <h1 style="color: #e2e8f0;">📋 Панель поддержки</h1>
+    
+    <!-- Фильтры по статусу -->
+    <div style="margin-bottom: 2rem; color: #e2e8f0;">
+        <strong>Фильтр по статусу:</strong>
+        <a href="?" style="color: #63b3ed;">Все</a>
+        {% for status_value, status_label in status_choices %}
+            | <a href="?status={{ status_value }}" 
+                 style="{% if current_status == status_value %}font-weight: bold; color: #90cdf4;{% else %}color: #63b3ed;{% endif %}">
+                {{ status_label }}
+            </a>
+        {% endfor %}
+    </div>
+    
+    {% if requests %}
+    <table style="width: 100%; border-collapse: collapse; color: #e2e8f0;">
+        <thead>
+            <tr style="background: #2d3748;">
+                <th style="padding: 10px; border: 1px solid #4a5568;">ID</th>
+                <th style="padding: 10px; border: 1px solid #4a5568;">Тема</th>
+                <th style="padding: 10px; border: 1px solid #4a5568;">Имя</th>
+                <th style="padding: 10px; border: 1px solid #4a5568;">Email</th>
+                <th style="padding: 10px; border: 1px solid #4a5568;">Статус</th>
+                <th style="padding: 10px; border: 1px solid #4a5568;">Дата</th>
+                <th style="padding: 10px; border: 1px solid #4a5568;">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in requests %}
+            <tr style="background: #1a202c;">
+                <td style="padding: 10px; border: 1px solid #4a5568;">{{ req.id }}</td>
+                <td style="padding: 10px; border: 1px solid #4a5568;">{{ req.subject }}</td>
+                <td style="padding: 10px; border: 1px solid #4a5568;">{{ req.name }}</td>
+                <td style="padding: 10px; border: 1px solid #4a5568;">{{ req.email }}</td>
+                <td style="padding: 10px; border: 1px solid #4a5568;">
+                    <span style="padding: 2px 8px; border-radius: 3px; 
+                                {% if req.status == 'new' %}background: #fefcbf; color: #744210;{% endif %}
+                                {% if req.status == 'in_progress' %}background: #bee3f8; color: #1a365d;{% endif %}
+                                {% if req.status == 'resolved' %}background: #c6f6d5; color: #22543d;{% endif %}
+                                {% if req.status == 'closed' %}background: #e2e8f0; color: #1a202c;{% endif %}">
+                        {{ req.get_status_display }}
+                    </span>
+                </td>
+                <td style="padding: 10px; border: 1px solid #4a5568;">{{ req.created_at|date:"d.m.Y H:i" }}</td>
+                <td style="padding: 10px; border: 1px solid #4a5568;">
+                    <a href="{% url 'support_request_detail' req.pk %}" class="nav-btn">👁️ Просмотреть</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color: #e2e8f0;">Заявок пока нет.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Вход - Метеосервис{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 2rem auto; text-align: center;">
+    <h2>Вход в систему</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="nav-btn" style="margin-top: 1rem;">Войти</button>
+    </form>
+    <p style="margin-top: 1rem;">Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
+</div>
+{% endblock %}
